@@ -9,16 +9,16 @@
 #    - remove items
 #
 
-export scriptName=bashInstall
+export scriptName=homeInstall
 
 ### Setup
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
-BASH_GIT_REPO="${BASH_GIT_REPO:=$HOME/devel/bash}"
+HOME_GIT_REPO="${HOME_GIT_REPO:=$HOME/devel/home}"
 umask 0022
 
-cd "$BASH_GIT_REPO" || {
-   printf "\\nError: Failed to cd into '%s'\\n" "$BASH_GIT_REPO"
+cd "$HOME_GIT_REPO" || {
+   printf "\\nError: Failed to cd into '%s'\\n" "$HOME_GIT_REPO"
    return 1
 }
 

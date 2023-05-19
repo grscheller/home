@@ -1,6 +1,7 @@
-# bash
+# home
 
-My bash and other cmdline related configuration files.
+Bash and other cmdline related configuration files not part of the
+$XDG_CONFIG_HOME infrastructure.
 
 * bash (startup files)
 * ~/bin scripts for various scipting languages
@@ -11,13 +12,13 @@ My bash and other cmdline related configuration files.
 ## Installation Location
 
 To install these files to your `$HOME` directory from a standalone
-alone `grscheller/bash` repo:
+alone `grscheller/home` repo:
 
 ```
-   $ ./bashInstall
+   $ ./homeInstall
 ```
 
-If `grscheller/bash` is a submodule of `grscheller/dotfiles`, do not run
+If `grscheller/home` is a submodule of `grscheller/dotfiles`, do not run
 it directly from the submodule.  It is designed to be called from
 a subshell of `dfInstall`.
 
@@ -34,7 +35,7 @@ a subshell of `dfInstall`.
   To the extent possible under law,
   [Geoffrey R. Scheller](https://github.com/grscheller)
   has waived all copyright and related or neighboring rights
-  to [grscheller/fish](https://github.com/grscheller/bash).
+  to [grscheller/fish](https://github.com/grscheller/home).
   This work is published from the United States of America.
 </p>
 
