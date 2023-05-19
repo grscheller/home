@@ -1,0 +1,133 @@
+#!/bin/sh
+#
+#  Installs my Bash environment and other configurations into $HOME directory.
+#
+#    - bash (startup files)
+#    - ~/bin scripts for various scipting languages
+#    - ssh, bloop (Scala), Cabal (Haskell)
+#    - create directories important to my work flow
+#    - remove items
+#
+
+export scriptName=bashInstall
+
+### Setup
+
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
+BASH_GIT_REPO="${BASH_GIT_REPO:=$HOME/devel/bash}"
+umask 0022
+
+cd "$BASH_GIT_REPO" || {
+   printf "\\nError: Failed to cd into '%s'\\n" "$BASH_GIT_REPO"
+   return 1
+}
+
+### Source install infrastructure if necessary
+. ./installSource.sh
+
+HOME_FILES='
+   .bash_profile
+   .bashrc
+   .inputrc
+'
+
+BIN_SCRIPTS='
+   buArch
+   chkcolor
+   codepoint
+   digpath
+   monitor
+   myCalc
+   pathtrim
+   rt
+   spin
+   startw
+   viewJarManifest
+'
+
+SSH_FILES='
+   config
+'
+
+BLOOP_FILES='
+   bloop.json
+'
+
+CABAL_FILES='
+   config
+'
+
+RM_TARGET_ITEMS="
+   $HOME/.vimrc
+"
+
+DIRS_TO_CREATE="
+   $HOME/catch
+   $HOME/.local/bin
+   $HOME/.cabal/bin
+"
+
+### Install or Check
+
+# Install bash config files
+for home_file in $HOME_FILES
+do
+   install_file "$HOME" "$home_file" . 0644 "$switch"
+done
+
+## Install  ~/bin  scripts
+for script in $BIN_SCRIPTS
+do
+   install_file "$HOME/bin" "$script" ./bin 0755 "$switch"
+done
+chmod 0755 "$HOME/bin"
+
+# Install SSH Configs
+for ssh_file in $SSH_FILES
+do
+   install_file "$HOME/.ssh" "$ssh_file" ./ssh 0600 "$switch"
+done
+chmod 0700 "$HOME/.ssh"
+
+# Install Bloop Configs for Scala
+for bloop_file in $BLOOP_FILES
+do
+   install_file "$HOME/.bloop" "$bloop_file" ./bloop 0600 "$switch"
+done
+chmod 0755 "$HOME/.bloop"
+
+# Install Cabal Configs for Haskell
+for cabal_file in $CABAL_FILES
+do
+   install_file "$HOME/.cabal" "$cabal_file" ./cabal 0644 "$switch"
+done
+chmod 0755 "$HOME/.cabal"
+
+### Some final tweaks, checks & cleanup
+
+# Remove/report no longer needed files and directories
+for item in $RM_TARGET_ITEMS
+do
+   remove_item "$item" target
+done
+
+# Create or report on missing directories
+for DIR in $DIRS_TO_CREATE
+do
+   ensure_dir "$DIR"
+done
+
+# Some final adjustments/tweaks/tasks
+case "$switch" in
+   install)
+      :
+      ;;
+   repo)
+      # Get git status info on repo
+      printf '\nGit Status:\n'
+      git status -s
+      ;;
+   target)
+      :
+      ;;
+esac
