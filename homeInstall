@@ -11,8 +11,6 @@
 
 export scriptName=homeInstall
 
-### Setup
-
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
 HOME_GIT_REPO="${HOME_GIT_REPO:=$HOME/devel/home}"
 umask 0022
@@ -22,7 +20,7 @@ cd "$HOME_GIT_REPO" || {
    return 1
 }
 
-### Source install infrastructure if necessary
+## Source install infrastructure if necessary
 . ./installSource.sh
 
 HOME_FILES='
@@ -67,7 +65,7 @@ DIRS_TO_CREATE="
    $HOME/.cabal/bin
 "
 
-### Install or Check
+## Install or Check
 
 # Install bash config files
 for home_file in $HOME_FILES
@@ -75,7 +73,7 @@ do
    install_file "$HOME" "$home_file" . 0644 "$switch"
 done
 
-## Install  ~/bin  scripts
+# Install ~/bin scripts
 for script in $BIN_SCRIPTS
 do
    install_file "$HOME/bin" "$script" ./bin 0755 "$switch"
@@ -103,8 +101,6 @@ do
 done
 chmod 0755 "$HOME/.cabal"
 
-### Some final tweaks, checks & cleanup
-
 # Remove/report no longer needed files and directories
 for item in $RM_TARGET_ITEMS
 do
@@ -117,7 +113,7 @@ do
    ensure_dir "$DIR"
 done
 
-# Some final adjustments/tweaks/tasks
+## Final adjustments/tweaks/tasks
 case "$switch" in
    install)
       :

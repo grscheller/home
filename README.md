@@ -9,6 +9,9 @@ $XDG_CONFIG_HOME infrastructure.
 * create directories important to my work flow
 * remove items
 
+Can be used either as a standalone repo, or as a git submodule for
+the `grscheller/dotfiles` GitHub repo.
+
 ## Installation Location
 
 To install these files to your `$HOME` directory from a standalone
