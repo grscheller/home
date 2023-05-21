@@ -41,7 +41,6 @@ BIN_SCRIPTS='
    rt
    spin
    startw
-   foofoo
    viewJarManifest
 '
 
