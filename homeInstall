@@ -9,6 +9,7 @@
 #    - remove items
 #
 
+repoName=home
 export scriptName=homeInstall
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
@@ -16,7 +17,7 @@ HOME_GIT_REPO="${HOME_GIT_REPO:=$HOME/devel/home}"
 umask 0022
 
 cd "$HOME_GIT_REPO" || {
-   printf "\\nError: Failed to cd into '%s'\\n" "$HOME_GIT_REPO"
+   printf '\nError - failed to cd into "%s"\n' "$scriptName" "$HOME_GIT_REPO"
    return 1
 }
 
@@ -40,6 +41,7 @@ BIN_SCRIPTS='
    rt
    spin
    startw
+   foofoo
    viewJarManifest
 '
 
@@ -68,52 +70,31 @@ DIRS_TO_CREATE="
 ## Install or Check
 
 # Install bash config files
-for home_file in $HOME_FILES
-do
-   install_file "$HOME" "$home_file" . 0644 "$switch"
-done
+install_files "$HOME" "$HOME_FILES" . 0644 "$switch"
 
 # Install ~/bin scripts
-for script in $BIN_SCRIPTS
-do
-   install_file "$HOME/bin" "$script" ./bin 0755 "$switch"
-done
+install_files "$HOME/bin" "$BIN_SCRIPTS" ./bin 0755 "$switch"
 chmod 0755 "$HOME/bin"
 
 # Install SSH Configs
-for ssh_file in $SSH_FILES
-do
-   install_file "$HOME/.ssh" "$ssh_file" ./ssh 0600 "$switch"
-done
+install_files "$HOME/.ssh" "$SSH_FILES" ./ssh 0600 "$switch"
 chmod 0700 "$HOME/.ssh"
 
 # Install Bloop Configs for Scala
-for bloop_file in $BLOOP_FILES
-do
-   install_file "$HOME/.bloop" "$bloop_file" ./bloop 0600 "$switch"
-done
+install_files "$HOME/.bloop" "$BLOOP_FILES" ./bloop 0644 "$switch"
 chmod 0755 "$HOME/.bloop"
 
 # Install Cabal Configs for Haskell
-for cabal_file in $CABAL_FILES
-do
-   install_file "$HOME/.cabal" "$cabal_file" ./cabal 0644 "$switch"
-done
+install_files "$HOME/.cabal" "$CABAL_FILES" ./cabal 0644 "$switch"
 chmod 0755 "$HOME/.cabal"
 
 # Remove/report no longer needed files and directories
-for item in $RM_TARGET_ITEMS
-do
-   remove_item "$item" target
-done
+remove_items "$RM_TARGET_ITEMS"
 
-# Create or report on missing directories
-for DIR in $DIRS_TO_CREATE
-do
-   ensure_dir "$DIR"
-done
+# Create/report missing directories
+ensure_dirs "$DIRS_TO_CREATE"
 
-## Final adjustments/tweaks/tasks
+## Adjustments/tweaks/tasks
 case "$switch" in
    install)
       :

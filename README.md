@@ -18,7 +18,7 @@ To install these files to your `$HOME` directory from a standalone
 alone `grscheller/home` repo:
 
 ```
-   $ ./homeInstall
+   $ ./homeInstall [-s {install|target|repo}]
 ```
 
 If `grscheller/home` is a submodule of `grscheller/dotfiles`, do not run
