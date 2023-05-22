@@ -9,8 +9,8 @@
 #    - remove items
 #
 
-repoName=home
-export scriptName=homeInstall
+export MyRepoName=home
+export MyScriptName=homeInstall
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
 HOME_GIT_REPO="${HOME_GIT_REPO:=$HOME/devel/home}"
@@ -24,13 +24,13 @@ cd "$HOME_GIT_REPO" || {
 ## Source install infrastructure if necessary
 . ./installSource.sh
 
-HOME_FILES='
+home_Files='
    .bash_profile
    .bashrc
    .inputrc
 '
 
-BIN_SCRIPTS='
+home_Bin_Scripts='
    buArch
    chkcolor
    codepoint
@@ -44,23 +44,23 @@ BIN_SCRIPTS='
    viewJarManifest
 '
 
-SSH_FILES='
+home_Ssh_Files='
    config
 '
 
-BLOOP_FILES='
+home_Bloop_Files='
    bloop.json
 '
 
-CABAL_FILES='
+home_Cabal_Files='
    config
 '
 
-RM_TARGET_ITEMS="
+home_Remove_Items="
    $HOME/.vimrc
 "
 
-DIRS_TO_CREATE="
+home_Dirs_To_Create="
    $HOME/catch
    $HOME/.local/bin
    $HOME/.cabal/bin
@@ -69,29 +69,29 @@ DIRS_TO_CREATE="
 ## Install or Check
 
 # Install bash config files
-install_files "$HOME" "$HOME_FILES" . 0644 "$switch"
+install_files "$HOME" "$home_Files" . 0644 "$switch"
 
 # Install ~/bin scripts
-install_files "$HOME/bin" "$BIN_SCRIPTS" ./bin 0755 "$switch"
+install_files "$HOME/bin" "$home_Bin_Scripts" ./bin 0755 "$switch"
 chmod 0755 "$HOME/bin"
 
 # Install SSH Configs
-install_files "$HOME/.ssh" "$SSH_FILES" ./ssh 0600 "$switch"
+install_files "$HOME/.ssh" "$home_Ssh_Files" ./ssh 0600 "$switch"
 chmod 0700 "$HOME/.ssh"
 
 # Install Bloop Configs for Scala
-install_files "$HOME/.bloop" "$BLOOP_FILES" ./bloop 0644 "$switch"
+install_files "$HOME/.bloop" "$home_Bloop_Files" ./bloop 0644 "$switch"
 chmod 0755 "$HOME/.bloop"
 
 # Install Cabal Configs for Haskell
-install_files "$HOME/.cabal" "$CABAL_FILES" ./cabal 0644 "$switch"
+install_files "$HOME/.cabal" "$home_Cabal_Files" ./cabal 0644 "$switch"
 chmod 0755 "$HOME/.cabal"
 
 # Remove/report no longer needed files and directories
-remove_items "$RM_TARGET_ITEMS"
+remove_items "$home_Remove_Items"
 
 # Create/report missing directories
-ensure_dirs "$DIRS_TO_CREATE"
+ensure_dirs "$home_Dirs_To_Create"
 
 ## Adjustments/tweaks/tasks
 case "$switch" in
@@ -99,9 +99,7 @@ case "$switch" in
       :
       ;;
    repo)
-      # Get git status info on repo
-      printf '\nGit Status:\n'
-      git status -s
+      git_status
       ;;
    target)
       :
