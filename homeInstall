@@ -22,7 +22,7 @@ cd "$HOME_GIT_REPO" || {
 }
 
 ## Source install infrastructure if necessary
-. ./installSource.sh
+. ./.installSource.sh
 
 home_Files='
    .bash_profile
