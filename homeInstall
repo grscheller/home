@@ -17,11 +17,11 @@ HOME_GIT_REPO="${HOME_GIT_REPO:=$HOME/devel/home}"
 umask 0022
 
 cd "$HOME_GIT_REPO" || {
-   printf '\nError - failed to cd into "%s"\n' "$scriptName" "$HOME_GIT_REPO"
+   printf '\nError - failed to cd into "%s"\n' "$MyScriptName" "$HOME_GIT_REPO"
    return 1
 }
 
-## Source install infrastructure if necessary
+## source install infrastructure and, if not done already, parse cmdline args
 . ./.installSource.sh
 
 home_Files='
