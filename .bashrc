@@ -11,7 +11,7 @@
 
 ## Shell functions
 
-#  Jump up multiple directories
+#  Jump up multiple directories - mere shadow of my fish version
 ud () {
    local upDir=..
    local nDirs="$1"
@@ -331,9 +331,6 @@ then
 
    # Haskell locations used by Cabal and Stack
    PATH=~/.cabal/bin:~/.local/bin:"$PATH"
-
-   # Utilities I want to overide everything
-   PATH=~/opt/bin:"$PATH"
 
    # If there is a ~/bin directory, put near end
    PATH="$PATH":~/bin
