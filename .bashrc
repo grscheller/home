@@ -339,6 +339,12 @@ then
    # If there is a ~/bin directory, put near end
    PATH="$PATH":~/bin
 
+   # opam OCaml configuration
+   if test -f ~/.opam/opam-init/init.sh
+   then
+      source ~/.opam/opam-init/init.sh
+   fi
+
    # Initial Python configuration
    export PIP_REQUIRE_VIRTUALENV=true
    export PYENV_ROOT=~/.local/share/pyenv
