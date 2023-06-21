@@ -296,6 +296,10 @@ then
 
    # Set up path to dotfiles repo
    export DOTFILE_GIT_REPO=~/devel/dotfiles
+   export FISH_GIT_REPO=~/devel/fish
+   export NVIM_GIT_REPO=~/devel/nvim
+   export HOME_GIT_REPO=~/devel/home
+   export SWAY_GIT_REPO=~/devel/sway-env
 
    # Construct the shell's PATH for all my different computers,
    # non-existent and duplicate path elements dealt with at end.
@@ -352,6 +356,10 @@ then
 
    ## Clean up PATH
    PATH="$(pathtrim)"
+
+   # Nix - thru symbolic link to current Nix environment
+   PATH=~/.nix-profile/bin:"$PATH"
+
 fi
 
 ## Aliases
@@ -375,7 +383,11 @@ alias WgetM='/usr/bin/wget --mirror -p --convert-links -e robots=off'
 
 # grscheller/dotfiles aliases
 alias dfInstall='$DOTFILE_GIT_REPO/dfInstall'
-alias sfInstall='$DOTFILE_GIT_REPO/sfInstall'
+alias sfInstall='sudo $DOTFILE_GIT_REPO/sfInstall'
+alias nvInstall='$NVIM_GIT_REPO/nvInstall'
+alias fishInstall='$FISH_GIT_REPO/fishInstall'
+alias homeInstall='$HOME_GIT_REPO/homeInstall'
+alias swayInstall='$SWAY_GIT_REPO/swayInstall'
 
 ## Make Bash more Korn Shell like
 set -o pipefail
