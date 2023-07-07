@@ -40,7 +40,6 @@ home_Bin_Scripts='
    pathtrim
    rt
    spin
-   startw
    viewJarManifest
 '
 
@@ -69,22 +68,22 @@ home_Dirs_To_Create="
 ## Install or Check
 
 # Install bash config files
-install_files "$HOME" "$home_Files" . 0644 "$switch"
+install_files "$HOME" "$home_Files" . 0644
 
 # Install ~/bin scripts
-install_files "$HOME/bin" "$home_Bin_Scripts" ./bin 0755 "$switch"
+install_files "$HOME/bin" "$home_Bin_Scripts" ./bin 0755
 chmod 0755 "$HOME/bin"
 
 # Install SSH Configs
-install_files "$HOME/.ssh" "$home_Ssh_Files" ./ssh 0600 "$switch"
+install_files "$HOME/.ssh" "$home_Ssh_Files" ./ssh 0600
 chmod 0700 "$HOME/.ssh"
 
 # Install Bloop Configs for Scala
-install_files "$HOME/.bloop" "$home_Bloop_Files" ./bloop 0644 "$switch"
+install_files "$HOME/.bloop" "$home_Bloop_Files" ./bloop 0644
 chmod 0755 "$HOME/.bloop"
 
 # Install Cabal Configs for Haskell
-install_files "$HOME/.cabal" "$home_Cabal_Files" ./cabal 0644 "$switch"
+install_files "$HOME/.cabal" "$home_Cabal_Files" ./cabal 0644
 chmod 0755 "$HOME/.cabal"
 
 # Remove/report no longer needed files and directories
